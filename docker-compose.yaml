@@ -1,0 +1,30 @@
+services:
+  zenoh_router:
+    image: enw:latest
+    environment:
+      - ROS_DISTRO=jazzy
+      - ROS_DOMAIN_ID=0
+      - RMW_IMPLEMENTATION=rmw_zenoh_cpp
+    network_mode: host
+    restart: unless-stopped
+    command: ros2 run rmw_zenoh_cpp rmw_zenohd
+
+  enw_bringup:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    image: enw:latest
+    environment:
+      - ROS_DISTRO=jazzy
+      - ROS_DOMAIN_ID=0
+      - RMW_IMPLEMENTATION=rmw_zenoh_cpp
+    volumes:
+      - /dev:/dev
+      - ./enwbot_description:/ros2_dev/src/enwbot_description
+      - ./enwbot_bringup:/ros2_dev/src/enwbot_bringup
+      - ./enwbot_helper_nodes:/ros2_dev/src/enwbot_helper_nodes
+    privileged: true
+    network_mode: host
+    depends_on:
+      - zenoh_router
+    command: ros2 launch enwbot_bringup enwbot.launch.py

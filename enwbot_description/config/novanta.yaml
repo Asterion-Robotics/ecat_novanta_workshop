@@ -1,0 +1,68 @@
+# Configuration file for Novanta drive
+# Master 0, Slave 3
+vendor_id: 0x0000029c
+product_id: 0x03831002
+assign_activate: 0x0300 # DC Synch register
+auto_fault_reset: true # true = automatic fault reset, false = fault reset on rising edge command interface "reset_fault"
+#sdo: # sdo data to be transferred at drive startup
+#  - { index: 0x60C2, sub_index: 1, type: int8, value: 10 } # Set interpolation time for cyclic modes to 10 ms
+#  - { index: 0x60C2, sub_index: 2, type: int8, value: -3 } # Set base 10-3s
+# Source: for communication area indices: https://doc.synapticon.com/circulo_safe_motion/sw5.1/object_dict/communication_area.html
+
+rpdo: # RxPDO = receive PDO Mapping, master (out) to slave (in) (MOSI)
+  - index: 0x1600
+    channels:
+      - {
+          index: 0x6040,
+          sub_index: 0,
+          type: uint16,
+          command_interface: control_word,
+          state_interface: control_word,
+          default: 0,
+        } # Control Word
+      - {
+          index: 0x607a,
+          sub_index: 0,
+          type: int32,
+          command_interface: position,
+          default: .nan,
+        } # Target position
+      - {
+          index: 0x60ff,
+          sub_index: 0,
+          type: int32,
+          command_interface: velocity,
+          default: 0,
+          factor: 160,
+        } # Target velocity
+      - {
+          index: 0x6060,
+          sub_index: 0,
+          type: int8,
+          command_interface: mode_of_operation,
+          default: 9,
+        } # Modes of operation
+
+tpdo: # TxPDO = transmit PDO Mapping, slave (out) to master (in) (MISO)
+  - index: 0x1a00
+    channels:
+      - {
+          index: 0x6041,
+          sub_index: 0,
+          type: uint16,
+          state_interface: status_word,
+        } # Status Word
+      - { index: 0x6064, sub_index: 0, type: int32, state_interface: position } # Position actual value
+      - { index: 0x606c, sub_index: 0, type: int32, state_interface: velocity, factor: 0.00625 } # Velocity actual value
+      - {
+          index: 0x6061,
+          sub_index: 0,
+          type: int8,
+          state_interface: mode_of_operation,
+        } # Modes of operation display
+
+sm: # Sync Manager
+  - { index: 0, type: output, watchdog: disable }
+  - { index: 1, type: input, watchdog: disable }
+  - { index: 2, type: output, pdo: rpdo, watchdog: enable }
+  - { index: 3, type: input, pdo: tpdo, watchdog: disable }

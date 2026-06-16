@@ -1,0 +1,53 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 200  # Hz
+    
+    gpio_controller:
+      type: gpio_controllers/GpioCommandController
+
+    drive_reset_controller:
+      type: gpio_controllers/GpioCommandController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController 
+
+
+gpio_controller:
+  ros__parameters:
+    gpios:
+      - el2008
+      - el1918
+      - right_wheel_joint
+    command_interfaces:
+      el2008:
+        interfaces:
+          - status_tower_red
+          - status_tower_green
+          - status_tower_yellow
+          - status_tower_buzzer
+      el1918:
+        interfaces:
+          - safety_input_vars
+      
+    state_interfaces:
+      el1918:
+        interfaces:
+          - safety_logic_state
+          - safety_output_vars
+
+drive_reset_controller:
+  ros__parameters:
+    gpios:
+      - right_wheel_joint
+    command_interfaces:
+      right_wheel_joint:
+        interfaces:
+          - reset_fault
+
+velocity_controller:
+  ros__parameters:
+    joints:
+      - right_wheel_joint

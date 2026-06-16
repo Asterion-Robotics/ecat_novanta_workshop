@@ -1,0 +1,49 @@
+# Configuration file for Beckhoff EK1914
+# Description : EtherCAT Coupler with TwinSAFE logic and integrated safe I/O
+# Revision number: 0x00120000
+vendor_id: 0x00000002
+product_id: 0x077a2c52
+
+rpdo: # RxPDO = receive PDO Mapping, MASTER OUT SLAVE IN
+  - index: 0x1600
+    channels:
+      - {index: 0x7000, sub_index: 0x01, type: int8} # FSoE Master CMD
+      - {index: 0x7001, sub_index: 0x01, type: bit1} # OutputChannel1
+      - {index: 0x7001, sub_index: 0x02, type: bit1} # OutputChannel2
+      - {skip: true, index: 0x0000, sub_index: 0x00, type: bit6} # Gap
+      - {index: 0x7000, sub_index: 0x03, type: int16} # FSoE Master ConnID
+      - {index: 0x7000, sub_index: 0x02, type: int16} # FSoE Master CRC_0
+
+  - index: 0x1601
+    channels:
+      - {index: 0x7010, sub_index: 0x01, type: bit1} # Output 0
+      - {index: 0x7010, sub_index: 0x02, type: bit1} # Output 1
+      - {index: 0x7010, sub_index: 0x03, type: bit1} # Output 2
+      - {index: 0x7010, sub_index: 0x04, type: bit1} # Output 3
+      - {index: 0x7010, sub_index: 0x05, type: bit1} # Safety Linked Output 0
+      - {index: 0x7010, sub_index: 0x06, type: bit1} # Safety Linked Output 1
+      - {skip: true, index: 0x0000, sub_index: 0x00, type: bit10} # Gap
+
+tpdo: # TxPDO = transmit PDO Mapping, MASTER IN SLAVE OUT
+  - index: 0x1a00
+    channels:
+      - {index: 0x6000, sub_index: 0x01, type: int8} # FSoE Slave CMD
+      - {index: 0x6001, sub_index: 0x01, type: bit1} # InputChannel1
+      - {index: 0x6001, sub_index: 0x02, type: bit1} # InputChannel2
+      - {skip: true, index: 0x0000, sub_index: 0x00, type: bit6} # Gap
+      - {index: 0x6000, sub_index: 0x03, type: int16} # FSoE Slave ConnID
+      - {index: 0x6000, sub_index: 0x02, type: int16} # FSoE Slave CRC_0
+
+  - index: 0x1a01
+    channels:
+      - {index: 0x6010, sub_index: 0x01, type: bit1} # Input 0
+      - {index: 0x6010, sub_index: 0x02, type: bit1} # Input 1
+      - {index: 0x6010, sub_index: 0x03, type: bit1} # Input 2
+      - {index: 0x6010, sub_index: 0x04, type: bit1} # Input 3
+      - {skip: true, index: 0x0000, sub_index: 0x00, type: bit12} # Gap
+
+sm: # Sync Manager
+  - {index: 0, type: output, watchdog: disable }
+  - {index: 1, type: input, watchdog: disable }
+  - {index: 2, type: output, pdo: rpdo, watchdog: disable }
+  - {index: 3, type: input, pdo: tpdo, watchdog: disable }
