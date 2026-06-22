@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- enwbot manipulator -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="enwbot">
+
+    <!-- Import enwbot urdf file -->
+    <xacro:include filename="$(find enwbot_description)/urdf/enwbot.urdf" />
+
+    <!-- Import enwbot materials file -->
+    <xacro:include filename="$(find enwbot_description)/config/materials.urdf" />
+
+    <!-- Import enwbot ros2_control description -->
+    <xacro:include filename="$(find enwbot_description)/ros2_control/enwbot_safe.ros2_control.urdf" />
+
+</robot>

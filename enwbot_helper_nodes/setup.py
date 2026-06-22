@@ -20,6 +20,7 @@ setup(
     entry_points={
         'console_scripts': [
             'enwbot_gui_node = enwbot_helper_nodes.enwbot_gui_node:main',
+            'enwbot_safe_gui_node = enwbot_helper_nodes.enwbot_safe_gui_node:main',
         ],
     },
 )

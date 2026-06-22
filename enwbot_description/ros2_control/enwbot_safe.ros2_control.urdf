@@ -17,15 +17,15 @@
             </ec_module>
         </gpio>
 
-        <gpio name="el1918">
+        <gpio name="el6910">
             <state_interface name="safety_logic_state" />
             <state_interface name="safety_output_vars" />
             <command_interface name="safety_input_vars" />
-            <ec_module name="el1918_01">
+            <ec_module name="el6910_01">
                 <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
                 <param name="alias">0</param>
-                <param name="position">2</param>
-                <param name="slave_config">$(find enwbot_description)/config/beckhoff_el1918.yaml</param>
+                <param name="position">1</param>
+                <param name="slave_config">$(find enwbot_description)/config/beckhoff_el6910.yaml</param>
             </ec_module>
         </gpio>
 
@@ -47,7 +47,7 @@
             <ec_module name="novanta_01">
                 <plugin>ethercat_generic_plugins/EcCiA402Drive</plugin>
                 <param name="alias">0</param>
-                <param name="position">0</param>
+                <param name="position">2</param>
                 <!-- Available modes of operation = position 8, velocity 9, effort 10, homing 6 -->
                 <param name="mode_of_operation">9</param>
                 <!-- Novanta  -->

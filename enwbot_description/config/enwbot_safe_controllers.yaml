@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 200  # Hz
+    update_rate: 100  # Hz
     
     gpio_controller:
       type: gpio_controllers/GpioCommandController
@@ -18,22 +18,15 @@ controller_manager:
 gpio_controller:
   ros__parameters:
     gpios:
-      - el2008
-      - el1918
+      - el6910
       - right_wheel_joint
     command_interfaces:
-      el2008:
-        interfaces:
-          - status_tower_red
-          - status_tower_green
-          - status_tower_yellow
-          - status_tower_buzzer
-      el1918:
+      el6910:
         interfaces:
           - safety_input_vars
       
     state_interfaces:
-      el1918:
+      el6910:
         interfaces:
           - safety_logic_state
           - safety_output_vars

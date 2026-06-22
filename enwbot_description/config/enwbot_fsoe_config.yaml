@@ -1,40 +1,28 @@
 #Configuration file for the EtherCAT safety network of the el6910 test system
 nets:
   - name: safety_net
-    safety_master: el1918_01
+    safety_master: el6910_01
     transfers:
       #FSOE transfers
       - size: 6
         in: { ec_module: ek1914_01, index: 0x6000, subindex: 0x01 }
-        out: { ec_module: el1918_01, index: 0x7080, subindex: 0x01 }
+        out: { ec_module: el6910_01, index: 0x7000, subindex: 0x01 }
       - size: 6
-        in: { ec_module: el1918_01, index: 0x6080, subindex: 0x01 }
+        in: { ec_module: el6910_01, index: 0x6000, subindex: 0x01 }
         out: { ec_module: ek1914_01, index: 0x7000, subindex: 0x01 }
-      - size: 6
-        in: { ec_module: el2904_01, index: 0x6000, subindex: 0x01 }
-        out: { ec_module: el1918_01, index: 0x7090, subindex: 0x01 }
-      - size: 6
-        in: { ec_module: el1918_01, index: 0x6090, subindex: 0x01 }
-        out: { ec_module: el2904_01, index: 0x7000, subindex: 0x01 }
-      - size: 6
-        in: { ec_module: el2904_02, index: 0x6000, subindex: 0x01 }
-        out: { ec_module: el1918_01, index: 0x70a0, subindex: 0x01 }
-      - size: 6
-        in: { ec_module: el1918_01, index: 0x60a0, subindex: 0x01 }
-        out: { ec_module: el2904_02, index: 0x7000, subindex: 0x01 }
 
       # - size: 31
       #   in: { ec_module: circulo_smm_ecat_01, index: 0x6760, subindex: 0x01 }
-      #   out: { ec_module: el1918_01, index: 0x70b0, subindex: 0x01 }
+      #   out: { ec_module: el6910_01, index: 0x70b0, subindex: 0x01 }
       # - size: 11
-      #   in: { ec_module: el1918_01, index: 0x60b0, subindex: 0x01 }
+      #   in: { ec_module: el6910_01, index: 0x60b0, subindex: 0x01 }
       #   out: { ec_module: circulo_smm_ecat_01, index: 0x6770, subindex: 0x01 }
 
       - size: 7
         in: { ec_module: novanta_01, index: 0x6760, subindex: 0x01 }
-        out: { ec_module: el1918_01, index: 0x70b0, subindex: 0x01 }
+        out: { ec_module: el6910_01, index: 0x7010, subindex: 0x01 }
       - size: 7
-        in: { ec_module: el1918_01, index: 0x60b0, subindex: 0x01 }
+        in: { ec_module: el6910_01, index: 0x6010, subindex: 0x01 }
         out: { ec_module: novanta_01, index: 0x6770, subindex: 0x01 }
 
       #Digital IO transfers
