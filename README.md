@@ -28,7 +28,12 @@ colcon build --symlink-install
 
 **Option B:** Use docker
 
-TODO
+```bash
+git clone https://github.com/Asterion-Robotics/ecat_novanta_workshop.git
+cd ecat_novanta_workshop
+
+docker compose up
+```
 
 ## Bringup
 
